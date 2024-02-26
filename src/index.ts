@@ -31,6 +31,4 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/users", userRoutes);
 
-server.listen(8080, () => {
-  console.log("Server listening on port 8080");
-});
+server.listen(8080);
