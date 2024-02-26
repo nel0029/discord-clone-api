@@ -1,0 +1,21 @@
+{
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES6",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "allowJs": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*", "typings/**/*.d.ts", "**/*.ts"],
+  "exclude": ["node_modules", "dist", "typings"]
+}
