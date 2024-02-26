@@ -4,11 +4,11 @@ import { Request, Response } from "express";
 
 import { Users } from "@/models/users";
 
-import { tokenGenerator } from "../../../../middlewares/generator/token";
+import { tokenGenerator } from "@/middlewares/generator/token";
 
-import { checkValidRegistrationFields } from "../../../../services/validator/registration-fields";
-import { checkUserExist } from "../../../../services/validator/user-exist";
-import { hashedPasswordGenerator } from "../../../../middlewares/generator/hashed-password";
+import { checkValidRegistrationFields } from "@/services/validator/registration-fields";
+import { checkUserExist } from "@/services/validator/user-exist";
+import { hashedPasswordGenerator } from "@/middlewares/generator/hashed-password";
 
 const createNewUser = expressAsyncHandler(
   async (req: Request, res: Response) => {
@@ -21,8 +21,6 @@ const createNewUser = expressAsyncHandler(
       profile_picture,
       privacy_type,
     } = req.body;
-
-    console.log("Request: ", req.body);
 
     checkValidRegistrationFields({
       fields: { name, user_name, email, password },

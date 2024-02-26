@@ -1,8 +1,5 @@
-import asyncHandler from "express-async-handler";
+import expressAsynHandler from "express-async-handler";
 
-export const getUserList = asyncHandler(async (req, res) => {
-  const { userId } = req.query;
-
-  console.log("UserId: ", userId);
+export const getUserList = expressAsynHandler(async (req, res) => {
   res.status(200).json({ message: "USERS FOUND" });
 });
