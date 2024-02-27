@@ -1,8 +1,7 @@
 import express from "express";
 
-import { getUserList } from "../../controllers/users/get/all";
-import { checkValidUserId } from "../../middlewares/validator/users";
-import createNewUser from "../../controllers/users/create/new-user";
+import { getUserList, createNewUser } from "@/controllers/users";
+import { checkValidUserId } from "@/middlewares";
 
 const router = express.Router();
 

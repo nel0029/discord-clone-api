@@ -1,6 +1,6 @@
 import { CheckValidRegistrationFieldsProps } from "../../../types/services";
 
-export const checkValidRegistrationFields = ({
+const checkValidRegistrationFields = ({
   fields,
   res,
 }: CheckValidRegistrationFieldsProps) => {
@@ -8,3 +8,5 @@ export const checkValidRegistrationFields = ({
     res.status(400).json({ message: "Please add all fields" });
   }
 };
+
+export default checkValidRegistrationFields;

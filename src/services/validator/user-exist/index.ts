@@ -1,6 +1,7 @@
 import { Users } from "../../../models/users";
 import { Response } from "express";
-export const checkUserExist = async ({
+
+const checkUserExist = async ({
   field,
   value,
   res,
@@ -13,3 +14,5 @@ export const checkUserExist = async ({
 
   user && res.status(400).json({ message: `This ${field} is already in use` });
 };
+
+export default checkUserExist;

@@ -4,11 +4,8 @@ import { Request, Response } from "express";
 
 import { Users } from "@/models/users";
 
-import { tokenGenerator } from "@/middlewares/generator/token";
-
-import { checkValidRegistrationFields } from "@/services/validator/registration-fields";
-import { checkUserExist } from "@/services/validator/user-exist";
-import { hashedPasswordGenerator } from "@/middlewares/generator/hashed-password";
+import { tokenGenerator, hashedPasswordGenerator } from "@/middlewares";
+import { checkUserExist, checkValidRegistrationFields } from "@/services";
 
 const createNewUser = expressAsyncHandler(
   async (req: Request, res: Response) => {

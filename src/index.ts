@@ -5,9 +5,9 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import dotenv from "dotenv";
-import connectDB from "@/configs/database/mongoDB";
-import { errorHandler } from "@/middlewares/handlers/error";
-import userRoutes from "@/routes/users";
+import { connectDB } from "@/configs";
+import { errorHandler } from "@/middlewares";
+import { userRoutes, serverRoutes } from "@/routes";
 
 dotenv.config();
 
@@ -30,5 +30,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/users", userRoutes);
+app.use("/servers", serverRoutes);
 
 server.listen(8080);

@@ -2,7 +2,7 @@ import { CookieOptions } from "express";
 import jwt from "jsonwebtoken";
 import { TokenGeneratorProps } from "../../../types/middlewares";
 
-export const tokenGenerator = ({ res, id }: TokenGeneratorProps) => {
+const tokenGenerator = ({ res, id }: TokenGeneratorProps) => {
   const token = jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "30d",
   });
@@ -16,3 +16,5 @@ export const tokenGenerator = ({ res, id }: TokenGeneratorProps) => {
 
   res.cookie("token", token, cookiesOptions);
 };
+
+export default tokenGenerator;

@@ -1,6 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
 
-export const checkValidUserId = expressAsyncHandler(async (req, res, next) => {
+const checkValidUserId = expressAsyncHandler(async (req, res, next) => {
   const { userId } = req.query;
 
   if (userId) {
@@ -11,3 +11,5 @@ export const checkValidUserId = expressAsyncHandler(async (req, res, next) => {
     res.status(401).json({ message: "No user id provided" });
   }
 });
+
+export default checkValidUserId;
