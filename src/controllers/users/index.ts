@@ -1,4 +1,4 @@
-import createNewUser from "@/controllers/users/create/new-user";
+import registerNewUser from "@/controllers/users/auth/register";
 import getUserList from "@/controllers/users/get/all";
 
-export { createNewUser, getUserList };
+export { registerNewUser, getUserList };

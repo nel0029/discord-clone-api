@@ -7,7 +7,7 @@ import { Users } from "@/models/users";
 import { tokenGenerator, hashedPasswordGenerator } from "@/middlewares";
 import { checkUserExist, checkFormFieldsExists } from "@/services";
 
-const createNewUser = expressAsyncHandler(
+const registerNewUser = expressAsyncHandler(
   async (req: Request, res: Response) => {
     const {
       name,
@@ -52,4 +52,4 @@ const createNewUser = expressAsyncHandler(
   }
 );
 
-export default createNewUser;
+export default registerNewUser;
