@@ -1,7 +1,7 @@
 import { Users } from "@/models/users";
 import { Response } from "express";
 
-const checkUserExist = async ({
+const searchUserExist = async ({
   field,
   value,
   res,
@@ -12,7 +12,11 @@ const checkUserExist = async ({
 }) => {
   const user = await Users.findOne({ [field]: value });
 
-  user && res.status(400).json({ message: `This ${field} is already in use` });
+  if (!user) {
+    res.status(404).json({ message: "User not found" });
+  }
+
+  return user;
 };
 
-export default checkUserExist;
+export default searchUserExist;

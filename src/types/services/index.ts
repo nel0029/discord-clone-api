@@ -6,7 +6,7 @@ export interface RegistrationFieldsValues {
   email: string;
   password: string;
 }
-export interface CheckValidRegistrationFieldsProps {
-  fields: RegistrationFieldsValues;
+export interface checkFormFieldsExistsProps {
+  fields: { [key: string]: string };
   res: Response;
 }
