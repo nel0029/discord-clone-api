@@ -3,9 +3,8 @@ import bcrypt from "bcryptjs";
 
 import { Request, Response } from "express";
 
-import { Users } from "@/models/users";
+import { tokenGenerator } from "@/middlewares";
 
-import { tokenGenerator, hashedPasswordGenerator } from "@/middlewares";
 import { checkFormFieldsExists, searchUserExist } from "@/services";
 
 const logInUser = expressAsyncHandler(async (req: Request, res: Response) => {
@@ -24,6 +23,8 @@ const logInUser = expressAsyncHandler(async (req: Request, res: Response) => {
 
   if (User && (await bcrypt.compare(password, User.password))) {
     tokenGenerator({ res, id: User._id.toString() });
+  } else {
+    res.status(400).json({ message: "Invalid credentials" });
   }
 });
 

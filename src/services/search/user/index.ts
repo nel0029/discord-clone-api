@@ -1,22 +1,19 @@
 import { Users } from "@/models/users";
-import { Response } from "express";
+
+import { ISearchUserExistProps } from "@/types/services";
 
 const searchUserExist = async ({
   field,
   value,
   res,
-}: {
-  field: string;
-  value: string;
-  res: Response;
-}) => {
-  const user = await Users.findOne({ [field]: value });
+}: ISearchUserExistProps) => {
+  const User = await Users.findOne({ [field]: value });
 
-  if (!user) {
+  if (!User) {
     res.status(404).json({ message: "User not found" });
   }
 
-  return user;
+  return User;
 };
 
 export default searchUserExist;
