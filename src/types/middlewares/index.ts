@@ -1,6 +1,6 @@
-import { Response, Request } from "express";
+import { Response } from "express";
 
-export interface TokenGeneratorProps {
+export interface ITokenGeneratorProps {
   id: string;
   res: Response;
 }

@@ -1,13 +1,19 @@
 import express from "express";
 
-import { getUserList, registerNewUser } from "@/controllers/users";
+import {
+  getUserList,
+  registerNewUser,
+  createNewUser,
+} from "@/controllers/users";
+
 import { checkValidUserId } from "@/middlewares";
 
-const router = express.Router();
+const UsersRouter = express.Router();
 
-router.post("/register", registerNewUser);
+UsersRouter.post("/register", registerNewUser);
 
-router.use(checkValidUserId);
-router.get("/all", getUserList);
+UsersRouter.use(checkValidUserId);
+UsersRouter.post("/new", createNewUser);
+UsersRouter.get("/all", getUserList);
 
-export default router;
+export default UsersRouter;

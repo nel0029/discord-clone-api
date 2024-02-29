@@ -1,4 +1,5 @@
-import userRoutes from "@/routes/users";
-import serverRoutes from "@/routes/servers";
+import AuthRoutes from "@/routes/auth";
+import UserRoutes from "@/routes/users";
+import ServerRoutes from "@/routes/servers";
 
-export { userRoutes, serverRoutes };
+export { AuthRoutes, UserRoutes, ServerRoutes };

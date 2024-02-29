@@ -7,7 +7,7 @@ import compression from "compression";
 import dotenv from "dotenv";
 import { connectDB } from "@/configs";
 import { errorHandler } from "@/middlewares";
-import { userRoutes, serverRoutes } from "@/routes";
+import { AuthRoutes, UserRoutes, ServerRoutes } from "@/routes";
 
 dotenv.config();
 
@@ -29,7 +29,8 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/users", userRoutes);
-app.use("/servers", serverRoutes);
+app.use("/auth", AuthRoutes);
+app.use("/users", UserRoutes);
+app.use("/servers", ServerRoutes);
 
 server.listen(8080);
