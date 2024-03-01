@@ -16,6 +16,7 @@ export interface ISearchUserExistProps {
   field: string;
   value: string;
   res: Response;
+  error_message: string;
 }
 
 export interface IFieldsRemoverProps {

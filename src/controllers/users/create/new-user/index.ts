@@ -5,7 +5,11 @@ import { Request, Response } from "express";
 import { Users } from "@/models/users";
 
 import { tokenGenerator, hashedPasswordGenerator } from "@/middlewares";
-import { checkUserExist, checkFormFieldsExists } from "@/services";
+import {
+  checkUserExist,
+  checkFormFieldsExists,
+  fieldsRemover,
+} from "@/services";
 
 const createNewUser = expressAsyncHandler(
   async (req: Request, res: Response) => {
@@ -32,7 +36,7 @@ const createNewUser = expressAsyncHandler(
 
     const hashedPassword = await hashedPasswordGenerator({ password });
 
-    const newUser = await Users.create({
+    const NewUser = await Users.create({
       name,
       user_name,
       email,
@@ -42,13 +46,16 @@ const createNewUser = expressAsyncHandler(
       privacy_type,
     });
 
-    const { password: _, ...newUserWithoutPassword } = newUser.toObject();
+    const CreatedUser = fieldsRemover({
+      document: NewUser,
+      fields: ["password"],
+    });
 
-    tokenGenerator({ res, id: newUser?._id?.toString() });
+    tokenGenerator({ res, id: NewUser?._id?.toString() });
 
     res
       .status(200)
-      .json({ message: "New user created", new_user: newUserWithoutPassword });
+      .json({ message: "New user created", new_user: CreatedUser });
   }
 );
 

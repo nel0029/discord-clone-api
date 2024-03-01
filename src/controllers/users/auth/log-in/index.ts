@@ -20,6 +20,7 @@ const logInUser = expressAsyncHandler(async (req: Request, res: Response) => {
     field: "email",
     value: email,
     res,
+    error_message: "Invalid credentials",
   });
 
   if (User && (await bcrypt.compare(password, User.password))) {
