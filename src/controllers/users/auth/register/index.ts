@@ -6,6 +6,7 @@ import { Users } from "@/models/users";
 
 import { tokenGenerator, hashedPasswordGenerator } from "@/middlewares";
 import { checkUserExist, checkFormFieldsExists } from "@/services";
+import fieldsRemover from "@/services/remover/fields";
 
 const registerNewUser = expressAsyncHandler(
   async (req: Request, res: Response) => {
@@ -32,7 +33,7 @@ const registerNewUser = expressAsyncHandler(
 
     const hashedPassword = await hashedPasswordGenerator({ password });
 
-    const newUser = await Users.create({
+    const NewUser = await Users.create({
       name,
       user_name,
       email,
@@ -42,13 +43,16 @@ const registerNewUser = expressAsyncHandler(
       privacy_type,
     });
 
-    const { password: _, ...newUserWithoutPassword } = newUser.toObject();
+    const RegisteredUser = fieldsRemover({
+      document: NewUser,
+      fields: ["password"],
+    });
 
-    tokenGenerator({ res, id: newUser?._id?.toString() });
+    tokenGenerator({ res, id: NewUser?._id?.toString() });
 
     res
       .status(200)
-      .json({ message: "New user created", new_user: newUserWithoutPassword });
+      .json({ message: "New user created", new_user: RegisteredUser });
   }
 );
 
