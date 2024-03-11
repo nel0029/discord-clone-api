@@ -16,7 +16,7 @@ const searchUserExist = async ({
     for (const field_exception of field_exceptions) {
       exceptions[field_exception] = 0;
     }
-    console.log("exceptions: ", exceptions);
+
     const User = await Users.findOne({ [field]: value }, exceptions);
 
     return User;

@@ -4,12 +4,12 @@ import { Request, Response } from "express";
 
 import { Users } from "@/models/users";
 
-import { tokenGenerator, hashedPasswordGenerator } from "@/middlewares";
 import {
-  checkUserExist,
-  checkFormFieldsExists,
-  fieldsRemover,
-} from "@/services";
+  tokenGenerator,
+  hashedPasswordGenerator,
+  searchUserExist,
+} from "@/middlewares";
+import { checkFormFieldsExists, fieldsRemover } from "@/services";
 
 const createNewUser = expressAsyncHandler(
   async (req: Request, res: Response) => {
@@ -28,34 +28,42 @@ const createNewUser = expressAsyncHandler(
       res,
     });
 
-    checkUserExist({
+    const ExistedEmail = await searchUserExist({
       field: "email",
       value: email,
-      res,
     });
 
-    const hashedPassword = await hashedPasswordGenerator({ password });
-
-    const NewUser = await Users.create({
-      name,
-      user_name,
-      email,
-      password: hashedPassword,
-      bio,
-      profile_picture,
-      privacy_type,
+    const ExistedUserName = await searchUserExist({
+      field: "user_name",
+      value: user_name,
     });
 
-    const CreatedUser = fieldsRemover({
-      document: NewUser,
-      fields: ["password"],
-    });
+    if (ExistedEmail || ExistedUserName) {
+      res.status(400).json({ message: "User already exists" });
+    } else {
+      const hashedPassword = await hashedPasswordGenerator({ password });
 
-    tokenGenerator({ res, id: NewUser?._id?.toString() });
+      const NewUser = await Users.create({
+        name,
+        user_name,
+        email,
+        password: hashedPassword,
+        bio,
+        profile_picture,
+        privacy_type,
+      });
 
-    res
-      .status(200)
-      .json({ message: "New user created", new_user: CreatedUser });
+      const CreatedUser = fieldsRemover({
+        document: NewUser,
+        fields: ["password"],
+      });
+
+      tokenGenerator({ res, id: NewUser?._id?.toString() });
+
+      res
+        .status(200)
+        .json({ message: "New user created", new_user: CreatedUser });
+    }
   }
 );
 
