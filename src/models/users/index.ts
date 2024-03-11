@@ -4,7 +4,7 @@ const UserSchema = new mongoose.Schema({
   name: { type: String },
   user_name: { type: String },
   email: { type: String },
-  password: { type: String, select: false },
+  password: { type: String },
   bio: { type: String, default: "" },
   profile_picture: {
     id: {
@@ -23,5 +23,18 @@ const UserSchema = new mongoose.Schema({
 });
 
 const Users = mongoose.model("Users", UserSchema);
+interface IUser {
+  _id: String;
+  name: string;
+  user_name: string;
+  email: string;
+  password: string;
+  bio: string;
+  profile_picture: {
+    id: string;
+    url: string;
+  };
+  privacy_type: number;
+}
 
-export { Users };
+export { Users, IUser };
