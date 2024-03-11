@@ -11,14 +11,6 @@ export interface ICheckFormFieldsExistsProps {
   fields: { [key: string]: string };
   res: Response;
 }
-
-export interface ISearchUserExistProps {
-  field: string;
-  value: string;
-  res: Response;
-  error_message: string;
-}
-
 export interface IFieldsRemoverProps {
   document: Document;
   fields: string[];

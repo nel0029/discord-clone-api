@@ -5,7 +5,8 @@ import { Request, Response } from "express";
 
 import { tokenGenerator } from "@/middlewares";
 
-import { checkFormFieldsExists, searchUserExist } from "@/services";
+import { checkFormFieldsExists } from "@/services";
+import { searchUserExist } from "@/middlewares";
 import fieldsRemover from "@/services/remover/fields";
 
 const logInUser = expressAsyncHandler(async (req: Request, res: Response) => {
@@ -19,8 +20,6 @@ const logInUser = expressAsyncHandler(async (req: Request, res: Response) => {
   const User = await searchUserExist({
     field: "email",
     value: email,
-    res,
-    error_message: "Invalid credentials",
   });
 
   if (User && (await bcrypt.compare(password, User.password))) {

@@ -1,14 +1,26 @@
+import { searchUserExist } from "@/middlewares";
+import { fieldsRemover } from "@/services";
 import expressAsyncHandler from "express-async-handler";
 
 const checkValidUserId = expressAsyncHandler(async (req, res, next) => {
   const { userId } = req.query;
 
-  if (userId) {
-    req.query.userId = userId;
+  const User = await searchUserExist({
+    field: "_id",
+    value: userId.toString(),
+  });
+
+  if (userId && User) {
+    const Client = fieldsRemover({
+      document: User,
+      fields: ["password", "tokens"],
+    });
+
+    req.body.client = Client;
 
     next();
   } else {
-    res.status(401).json({ message: "No user id provided" });
+    res.status(401).json({ message: "UserId not found" });
   }
 });
 
